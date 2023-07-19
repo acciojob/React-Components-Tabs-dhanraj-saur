@@ -1,46 +1,39 @@
 import React, { useState } from 'react';
 import '../styles/App.css';
 
-function App() {
-    const [activeTab, setActiveTab] = useState('Home');
 
-    const handleTabClick = (tabName) => {
-        setActiveTab(tabName);
-    };
 
-    return (
-        <div className="App">
-            <Tabs activeTab={activeTab} handleTabClick={handleTabClick} />
-            <Viewport activeTab={activeTab} />
-        </div>
-    );
-}
+const TABS = [
+  { id: 'Home', label: 'Home' },
+  { id: 'About', label: 'About' },
+  { id: 'Features', label: 'Features' },
+];
 
-function Tabs({ activeTab, handleTabClick }) {
-    const tabs = ['Home', 'About', 'Features'];
+const App = () => {
+  const [activeTab, setActiveTab] = useState(TABS[0].id);
 
-    return (
-        <div className="tabs">
-            {tabs.map((tab) => (
-                <div
-                    key={tab}
-                    className={`tab ${activeTab === tab ? 'active' : ''}`}
-                    id={`${tab}-tab`}
-                    onClick={() => handleTabClick(tab)}
-                >
-                    {tab}
-                </div>
-            ))}
-        </div>
-    );
-}
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+  };
 
-function Viewport({ activeTab }) {
-    return (
-        <div className="viewport">
-            Pages Go Here: {activeTab}
-        </div>
-    );
-}
+  return (
+    <div className="App">
+      <div className="tabs">
+        {TABS.map((tab) => (
+          <div
+            key={tab.id}
+            className={`tab ${activeTab === tab.id ? 'active' : ''}`}
+            onClick={() => handleTabClick(tab.id)}
+          >
+            {tab.label}
+          </div>
+        ))}
+      </div>
+      <div className="viewport">
+        Pages Go Here
+      </div>
+    </div>
+  );
+};
 
 export default App;
